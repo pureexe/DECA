@@ -70,6 +70,8 @@ def main(args):
             np.savetxt(os.path.join(savefolder, name, name + '_kpt3d.txt'), opdict['landmarks3d'][0].cpu().numpy())
         if args.saveObj:
             deca.save_obj(os.path.join(savefolder, name, name + '.obj'), opdict)
+        if args.saveLight:
+            np.save(os.path.join(savefolder, name + '_light.npy'), codedict['light'][0].cpu().numpy())
         if args.saveMat:
             opdict = util.dict_tensor2npy(opdict)
             savemat(os.path.join(savefolder, name, name + '.mat'), opdict)
@@ -120,6 +122,8 @@ if __name__ == '__main__':
     parser.add_argument('--saveKpt', default=False, type=lambda x: x.lower() in ['true', '1'],
                         help='whether to save 2D and 3D keypoints' )
     parser.add_argument('--saveDepth', default=False, type=lambda x: x.lower() in ['true', '1'],
+                        help='whether to save depth image' )
+    parser.add_argument('--saveLight', default=False, type=lambda x: x.lower() in ['true', '1'],
                         help='whether to save depth image' )
     parser.add_argument('--saveObj', default=False, type=lambda x: x.lower() in ['true', '1'],
                         help='whether to save outputs as .obj, detail mesh will end with _detail.obj. \
